@@ -5,6 +5,10 @@ import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 import org.apache.http.HttpStatus;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -39,7 +43,7 @@ public class MyCrawler1 extends WebCrawler {
         String href = url.getURL().toLowerCase();
         return !FILTERS.matcher(href).matches()
 //                && href.startsWith("http://www.swpv.net");
-                && href.startsWith("http://www.sctaiyi.com");
+                && href.startsWith("http://www.sctaiyi.com/news");
 //                && href.startsWith("http://www.swkj.net.cn/");
 //                && href.startsWith("http://www.ics.uci.edu/");
     }
@@ -53,16 +57,28 @@ public class MyCrawler1 extends WebCrawler {
         String url = page.getWebURL().getURL();
         System.out.println("URL: " + url);
 
-//        if (page.getParseData() instanceof HtmlParseData) {
-//            HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
+        if (page.getParseData() instanceof HtmlParseData) {
+            HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 //            String text = htmlParseData.getText();
-//            String html = htmlParseData.getHtml();
+            String html = htmlParseData.getHtml();
 //            Set<WebURL> links = htmlParseData.getOutgoingUrls();
-//
+
 //            System.out.println("Text length: " + text.length());
-//            System.out.println("Html length: " + html.length());
+            System.out.println("Html length: " + html.length());
 //            System.out.println("Number of outgoing links: " + links.size() + "\n");
-//        }
+
+            Document doc = Jsoup.parse(html);
+
+            Elements newsList = doc.getElementsByTag("p");
+
+            StringBuilder sb = new StringBuilder();
+            for (Element news : newsList) {
+                sb.append(news.text());
+            }
+
+            urlSet.add(sb.toString());
+
+        }
     }
 
     @Override
@@ -74,7 +90,7 @@ public class MyCrawler1 extends WebCrawler {
     protected void handlePageStatusCode(WebURL webUrl, int statusCode, String statusDescription) {
         if (statusCode != HttpStatus.SC_OK) {
             if (statusCode == HttpStatus.SC_NOT_FOUND) {
-                urlSet.add(webUrl.getURL());
+//                urlSet.add(webUrl.getURL());
             }
         }
     }

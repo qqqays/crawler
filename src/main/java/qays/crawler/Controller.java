@@ -41,7 +41,7 @@ public class Controller {
 //        controller.addSeed("http://www.ics.uci.edu/");
 //        controller.addSeed("http://www.swkj.net.cn/");
 //        controller.addSeed("http://www.swpv.net");
-        controller.addSeed("http://www.sctaiyi.com");
+        controller.addSeed("http://www.sctaiyi.com/news");
 
         /*
          * Start the crawl. This is a blocking operation, meaning that your code
