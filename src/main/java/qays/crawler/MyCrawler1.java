@@ -43,7 +43,7 @@ public class MyCrawler1 extends WebCrawler {
         String href = url.getURL().toLowerCase();
         return !FILTERS.matcher(href).matches()
 //                && href.startsWith("http://www.swpv.net");
-                && href.startsWith("http://www.sctaiyi.com/news");
+                && href.startsWith("http://www.sctaiyi.com");
 //                && href.startsWith("http://www.swkj.net.cn/");
 //                && href.startsWith("http://www.ics.uci.edu/");
     }
@@ -64,7 +64,7 @@ public class MyCrawler1 extends WebCrawler {
 //            Set<WebURL> links = htmlParseData.getOutgoingUrls();
 
 //            System.out.println("Text length: " + text.length());
-            System.out.println("Html length: " + html.length());
+//            System.out.println("Html length: " + html.length());
 //            System.out.println("Number of outgoing links: " + links.size() + "\n");
 
             Document doc = Jsoup.parse(html);
@@ -76,7 +76,8 @@ public class MyCrawler1 extends WebCrawler {
                 sb.append(news.text());
             }
 
-            urlSet.add(sb.toString());
+//            urlSet.add(sb.toString());
+            urlSet.add(url);
 
         }
     }

@@ -41,7 +41,7 @@ public class Controller {
 //        controller.addSeed("http://www.ics.uci.edu/");
 //        controller.addSeed("http://www.swkj.net.cn/");
 //        controller.addSeed("http://www.swpv.net");
-        controller.addSeed("http://www.sctaiyi.com/news");
+        controller.addSeed("http://www.sctaiyi.com");
 
         /*
          * Start the crawl. This is a blocking operation, meaning that your code
@@ -52,11 +52,15 @@ public class Controller {
         List list =  controller.getCrawlersLocalData();
 
 
+        int i = 0;
         for(Object set : list){
             for(Object url : (Set) set){
                 System.out.println(url);
+                i++;
             }
         }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~links of web : " + i);
 
     }
 }
